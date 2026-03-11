@@ -16,7 +16,6 @@ interface LotCardProps {
 const LotCard: React.FC<LotCardProps> = ({
   lot,
   index,
-  totalLots,
   seed,
   customSeed,
   onSeedChange,
@@ -34,9 +33,6 @@ const LotCard: React.FC<LotCardProps> = ({
         marginBottom: 10,
         border: `2px solid ${seed ? (isDanac ? '#bbf7d0' : '#fde68a') : '#f3f4f6'}`,
         animation: `slideUp 0.3s ease ${Math.min(index * 0.03, 0.5)}s both`,
-        position: 'relative',
-        zIndex: totalLots - index,
-        overflow: 'visible',
         transition: 'border-color 0.3s',
       }}
     >
@@ -85,7 +81,6 @@ const LotCard: React.FC<LotCardProps> = ({
         customValue={customSeed}
         onChange={onSeedChange}
         onCustomChange={onCustomChange}
-        zIndex={totalLots - index}
       />
     </div>
   );

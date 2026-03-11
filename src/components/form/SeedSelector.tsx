@@ -1,5 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
-import { useClickOutside } from '../../hooks/useClickOutside';
+import React, { useState, useRef } from 'react';
 import { DANAC_SEEDS, SEED_OPTIONS } from '../../data/seeds';
 import { SeedGroup } from '../../types';
 
@@ -8,7 +7,6 @@ interface SeedSelectorProps {
   customValue?: string;
   onChange: (seed: string) => void;
   onCustomChange: (val: string) => void;
-  zIndex: number;
 }
 
 const SeedSelector: React.FC<SeedSelectorProps> = ({
@@ -16,10 +14,9 @@ const SeedSelector: React.FC<SeedSelectorProps> = ({
   customValue,
   onChange,
   onCustomChange,
-  zIndex,
 }) => {
   const [open, setOpen] = useState<boolean>(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const isDanac = DANAC_SEEDS.includes(value);
   const cat: 'DANAC' | 'Otros' | null = isDanac
     ? 'DANAC'
@@ -27,20 +24,15 @@ const SeedSelector: React.FC<SeedSelectorProps> = ({
       ? 'Otros'
       : null;
 
-  useClickOutside(ref, useCallback(() => setOpen(false), []));
-
   return (
-    <div
-      ref={ref}
-      style={{ position: 'relative', zIndex: open ? 9999 : zIndex }}
-    >
+    <div style={{ position: 'relative' }}>
       <button
         onClick={() => setOpen(!open)}
         style={{
           width: '100%',
           padding: '11px 14px',
           border: `2px solid ${cat === 'DANAC' ? '#22c55e' : cat === 'Otros' ? '#f59e0b' : '#e5e7eb'}`,
-          borderRadius: 10,
+          borderRadius: open ? '10px 10px 0 0' : 10,
           background:
             cat === 'DANAC' ? '#f0fdf4' : cat === 'Otros' ? '#fffbeb' : '#fff',
           cursor: 'pointer',
@@ -65,9 +57,16 @@ const SeedSelector: React.FC<SeedSelectorProps> = ({
             : value || 'Seleccionar semilla...'}
         </span>
         <span
-          style={{ fontSize: 10, opacity: 0.4, flexShrink: 0, marginLeft: 8 }}
+          style={{
+            fontSize: 10,
+            opacity: 0.4,
+            flexShrink: 0,
+            marginLeft: 8,
+            transition: 'transform 0.2s',
+            transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+          }}
         >
-          {open ? '▲' : '▼'}
+          ▼
         </span>
       </button>
       {cat && (
@@ -88,22 +87,20 @@ const SeedSelector: React.FC<SeedSelectorProps> = ({
           {cat}
         </span>
       )}
-      {open && (
-        <div
-          style={{
-            position: 'absolute',
-            top: 'calc(100% + 4px)',
-            left: 0,
-            right: 0,
-            background: '#fff',
-            border: '1px solid #d1d5db',
-            borderRadius: 12,
-            boxShadow: '0 20px 60px rgba(0,0,0,0.28)',
-            maxHeight: 280,
-            overflowY: 'auto',
-            zIndex: 99999,
-          }}
-        >
+      <div
+        ref={contentRef}
+        style={{
+          maxHeight: open ? 300 : 0,
+          overflow: 'hidden',
+          transition: 'max-height 0.25s ease-in-out',
+          borderLeft: open ? '1px solid #e5e7eb' : 'none',
+          borderRight: open ? '1px solid #e5e7eb' : 'none',
+          borderBottom: open ? '1px solid #e5e7eb' : 'none',
+          borderRadius: '0 0 10px 10px',
+          background: '#fff',
+        }}
+      >
+        <div style={{ overflowY: 'auto', maxHeight: 300 }}>
           {SEED_OPTIONS.map((g: SeedGroup) => (
             <div key={g.category}>
               <div
@@ -115,9 +112,6 @@ const SeedSelector: React.FC<SeedSelectorProps> = ({
                   letterSpacing: 1.2,
                   color: g.category === 'DANAC' ? '#16a34a' : '#d97706',
                   background: g.category === 'DANAC' ? '#f0fdf4' : '#fffbeb',
-                  position: 'sticky',
-                  top: 0,
-                  zIndex: 1,
                   borderBottom: `1px solid ${g.category === 'DANAC' ? '#dcfce7' : '#fef3c7'}`,
                 }}
               >
@@ -165,7 +159,7 @@ const SeedSelector: React.FC<SeedSelectorProps> = ({
             </div>
           ))}
         </div>
-      )}
+      </div>
       {value === 'Otro (especificar)' && (
         <input
           type="text"
