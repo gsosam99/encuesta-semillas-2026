@@ -39,12 +39,17 @@ const Header: React.FC<HeaderProps> = ({ mode }) => (
           Encuesta de Semillas
         </h1>
       </div>
+      {mode === 'login' && (
+        <p style={{ fontSize: 13, opacity: 0.8, marginTop: 3 }}>
+          Acceso de productores
+        </p>
+      )}
       {mode === 'form' && (
         <p style={{ fontSize: 13, opacity: 0.8, marginTop: 3 }}>
           Selección de semilla por Lote Muestreo
         </p>
       )}
-      {mode === 'admin' && (
+      {mode === 'dashboard' && (
         <p style={{ fontSize: 13, opacity: 0.8, marginTop: 3 }}>
           Panel de administración
         </p>

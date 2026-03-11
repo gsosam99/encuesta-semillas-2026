@@ -399,3 +399,54 @@ export const PRODUCERS_DATA: Record<string, Lote[]> = {
     { l: 'Lote de Arriba', h: 11.74, f: '' },
   ],
 };
+
+// Mapeo cédula → nombre del productor
+export const CEDULA_TO_PRODUCER: Record<string, string> = {
+  'V-10000001': 'Celso Fantinel Furlanis',
+  'V-10000002': 'Meiz Tohme Elchair',
+  'V-10000003': 'Cesar Augusto Ledezma Mendez',
+  'V-10000004': 'Juan Samuell Silveira Camacho',
+  'V-10000005': 'Jose Dario Gallucci Requena',
+  'V-10000006': 'Leoscar Machado Silveira',
+  'V-10000007': 'Juan Vicente Risso',
+  'V-10000008': 'Jose Rolando Caldera Rondon',
+  'V-10000009': 'Jose Rolando Caldera Alveraiz',
+  'V-10000010': 'Luis Alberto Rojas Pieretti',
+  'V-10000011': 'Ezequiel Jose Fontiveros Briceño',
+  'V-10000012': 'Tony Alejandro Pestana Perez',
+  'V-10000013': 'Luigi Donello Tognetti',
+  'V-10000014': 'Miguel Ángel Tohme Ledezma',
+  'V-10000015': 'Manuel José González Gómez',
+  'V-10000016': 'Maria Angelica Esparragoza Salazar',
+  'V-10000017': 'Francisco Enrique González Roselli',
+  'V-10000018': 'Antonio Luis Zambrano Acuña',
+  'V-10000019': 'Juan Hernández Díaz',
+  'V-10000020': 'Francisco Jose Márquez',
+  'V-10000021': 'Henry Jose Cordones Linarez',
+  'V-10000022': 'Dennis Leonardo Alibardi Maschio',
+  'V-10000023': 'Eduardo Manuel Mosquera Morillo',
+  'V-10000024': 'Carlo Antonio Delfin Carmona',
+  'V-10000025': 'Julio Antonio Colmenarez Mendoza',
+  'V-10000026': 'Cesar Igor Padilla Martinez',
+  'V-10000027': 'Elisa Bustamante',
+  'V-10000028': 'Lorena Johana Orlando Testi',
+  'V-10000029': 'Sebastian Bonet',
+  'V-10000030': 'Angela Rosa Guedez Morales',
+  'V-10000031': 'Ramon Eugenio Arruebarrena Garofalo',
+  'V-10000032': 'Wolfgang Steger',
+  'V-10000033': 'Héctor Pérez',
+  'V-10000034': 'Virbel Griman',
+};
+
+export function lookupByCedula(
+  cedula: string
+): { name: string; lotes: Lote[] } | null {
+  let normalized = cedula.trim().toUpperCase().replace(/\s/g, '');
+  // Accept with or without "V-" prefix
+  if (/^\d+$/.test(normalized)) normalized = 'V-' + normalized;
+  else if (normalized.startsWith('V') && !normalized.startsWith('V-'))
+    normalized = 'V-' + normalized.slice(1);
+  const name = CEDULA_TO_PRODUCER[normalized];
+  if (!name || !PRODUCERS_DATA[name]) return null;
+  return { name, lotes: PRODUCERS_DATA[name] };
+}

@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { AppMode, Lote, Stats, SubmissionData, StoredResponse } from './types';
-import { PRODUCERS_DATA } from './data/producers';
+import { PRODUCERS_DATA, lookupByCedula } from './data/producers';
 import { DANAC_SEEDS } from './data/seeds';
-import { TOKEN_TO_PRODUCER } from './utils/tokens';
 import { supabaseInsert, supabaseFetchAll } from './services/supabase';
 import Header from './components/layout/Header';
 import Spinner from './components/ui/Spinner';
-import NotFound from './components/ui/NotFound';
+import LoginForm from './components/login/LoginForm';
+import DashboardAuth from './components/admin/DashboardAuth';
 import ProducerForm from './components/form/ProducerForm';
 import AdminPanel from './components/admin/AdminPanel';
 import SubmittedView from './components/submitted/SubmittedView';
+
+const DASHBOARD_PIN = process.env.REACT_APP_DASHBOARD_PIN || 'admin2024';
 
 const App: React.FC = () => {
   const [mode, setMode] = useState<AppMode>('loading');
@@ -19,7 +21,11 @@ const App: React.FC = () => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [allResponses, setAllResponses] = useState<StoredResponse[]>([]);
   const [adminSearch, setAdminSearch] = useState<string>('');
-  const [copied, setCopied] = useState<string>('');
+
+  // Login & dashboard auth state
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const [dashboardAuth, setDashboardAuth] = useState<boolean>(false);
+  const [dashboardError, setDashboardError] = useState<string | null>(null);
 
   const loadAll = async (): Promise<void> => {
     const remote = await supabaseFetchAll();
@@ -28,18 +34,35 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const hash = window.location.hash.replace('#', '');
-    if (hash === 'admin') {
-      loadAll().then(() => setMode('admin'));
-    } else if (hash && TOKEN_TO_PRODUCER[hash]) {
-      setProducerName(TOKEN_TO_PRODUCER[hash]);
-      setMode('form');
-    } else if (hash) {
-      setMode('notfound');
+    if (hash === 'dashboard') {
+      loadAll().then(() => setMode('dashboard'));
     } else {
-      setMode('admin');
+      setMode('login');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // --- Login handler ---
+  const handleLogin = (cedula: string): void => {
+    setLoginError(null);
+    const result = lookupByCedula(cedula);
+    if (result) {
+      setProducerName(result.name);
+      setMode('form');
+    } else {
+      setLoginError('Cédula no encontrada. Verifique e intente de nuevo.');
+    }
+  };
+
+  // --- Dashboard auth handler ---
+  const handleDashboardAuth = (pin: string): void => {
+    setDashboardError(null);
+    if (pin === DASHBOARD_PIN) {
+      setDashboardAuth(true);
+    } else {
+      setDashboardError('Clave incorrecta. Intente de nuevo.');
+    }
+  };
 
   const lotes: Lote[] = useMemo(
     () => (producerName ? PRODUCERS_DATA[producerName] || [] : []),
@@ -114,13 +137,6 @@ const App: React.FC = () => {
     a.click();
   };
 
-  const copyLink = (token: string): void => {
-    const base = window.location.origin + window.location.pathname;
-    navigator.clipboard.writeText(`${base}#${token}`);
-    setCopied(token);
-    setTimeout(() => setCopied(''), 2000);
-  };
-
   return (
     <div
       style={{
@@ -133,7 +149,10 @@ const App: React.FC = () => {
 
       <div style={{ maxWidth: 680, margin: '0 auto', padding: '20px 16px 100px' }}>
         {mode === 'loading' && <Spinner />}
-        {mode === 'notfound' && <NotFound />}
+
+        {mode === 'login' && (
+          <LoginForm onLogin={handleLogin} error={loginError} />
+        )}
 
         {mode === 'form' && (
           <ProducerForm
@@ -166,13 +185,18 @@ const App: React.FC = () => {
           />
         )}
 
-        {mode === 'admin' && (
+        {mode === 'dashboard' && !dashboardAuth && (
+          <DashboardAuth
+            onAuthenticated={handleDashboardAuth}
+            error={dashboardError}
+          />
+        )}
+
+        {mode === 'dashboard' && dashboardAuth && (
           <AdminPanel
             allResponses={allResponses}
             adminSearch={adminSearch}
             onSearchChange={setAdminSearch}
-            copied={copied}
-            onCopyLink={copyLink}
             onRefresh={loadAll}
             onExportCSV={exportCSV}
           />

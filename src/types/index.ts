@@ -41,4 +41,4 @@ export interface SeedGroup {
   seeds: string[];
 }
 
-export type AppMode = 'loading' | 'form' | 'admin' | 'notfound' | 'submitted';
+export type AppMode = 'loading' | 'login' | 'form' | 'dashboard' | 'submitted';
