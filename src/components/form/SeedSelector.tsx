@@ -32,51 +32,96 @@ const SeedSelector: React.FC<SeedSelectorProps> = ({
   return (
     <div
       ref={ref}
-      className="relative"
-      style={{ zIndex: open ? 9999 : zIndex }}
+      style={{ position: 'relative', zIndex: open ? 9999 : zIndex }}
     >
       <button
         onClick={() => setOpen(!open)}
-        className="w-full py-[11px] px-3.5 rounded-[10px] cursor-pointer flex justify-between items-center font-sans text-sm text-gray-800 transition-all"
         style={{
+          width: '100%',
+          padding: '11px 14px',
           border: `2px solid ${cat === 'DANAC' ? '#22c55e' : cat === 'Otros' ? '#f59e0b' : '#e5e7eb'}`,
+          borderRadius: 10,
           background:
             cat === 'DANAC' ? '#f0fdf4' : cat === 'Otros' ? '#fffbeb' : '#fff',
+          cursor: 'pointer',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          fontFamily: 'inherit',
+          fontSize: 14,
+          color: '#1f2937',
+          transition: 'all 0.2s',
         }}
       >
-        <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+        <span
+          style={{
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        >
           {value === 'Otro (especificar)' && customValue
             ? customValue
             : value || 'Seleccionar semilla...'}
         </span>
-        <span className="text-[10px] opacity-40 shrink-0 ml-2">
-          {open ? '\u25B2' : '\u25BC'}
+        <span
+          style={{ fontSize: 10, opacity: 0.4, flexShrink: 0, marginLeft: 8 }}
+        >
+          {open ? '▲' : '▼'}
         </span>
       </button>
       {cat && (
         <span
-          className="absolute -top-[9px] right-3 text-white text-[10px] font-bold py-0.5 px-2.5 rounded-full tracking-wide"
           style={{
+            position: 'absolute',
+            top: -9,
+            right: 12,
             background: cat === 'DANAC' ? '#16a34a' : '#d97706',
+            color: '#fff',
+            fontSize: 10,
+            fontWeight: 700,
+            padding: '2px 10px',
+            borderRadius: 20,
+            letterSpacing: 0.5,
           }}
         >
           {cat}
         </span>
       )}
       {open && (
-        <div className="absolute top-[calc(100%+4px)] left-0 right-0 bg-white border border-gray-300 rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.28)] max-h-[280px] overflow-y-auto z-[99999]">
+        <div
+          style={{
+            position: 'absolute',
+            top: 'calc(100% + 4px)',
+            left: 0,
+            right: 0,
+            background: '#fff',
+            border: '1px solid #d1d5db',
+            borderRadius: 12,
+            boxShadow: '0 20px 60px rgba(0,0,0,0.28)',
+            maxHeight: 280,
+            overflowY: 'auto',
+            zIndex: 99999,
+          }}
+        >
           {SEED_OPTIONS.map((g: SeedGroup) => (
             <div key={g.category}>
               <div
-                className="py-[9px] px-3.5 text-[11px] font-bold uppercase tracking-wider sticky top-0 z-[1]"
                 style={{
+                  padding: '9px 14px',
+                  fontSize: 11,
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: 1.2,
                   color: g.category === 'DANAC' ? '#16a34a' : '#d97706',
-                  background:
-                    g.category === 'DANAC' ? '#f0fdf4' : '#fffbeb',
+                  background: g.category === 'DANAC' ? '#f0fdf4' : '#fffbeb',
+                  position: 'sticky',
+                  top: 0,
+                  zIndex: 1,
                   borderBottom: `1px solid ${g.category === 'DANAC' ? '#dcfce7' : '#fef3c7'}`,
                 }}
               >
-                {g.category === 'DANAC' ? '\uD83C\uDF3F DANAC' : '\uD83D\uDCE6 Otros'}
+                {g.category === 'DANAC' ? '🌿 DANAC' : '📦 Otros'}
               </div>
               {g.seeds.map((seed: string) => (
                 <div
@@ -85,14 +130,18 @@ const SeedSelector: React.FC<SeedSelectorProps> = ({
                     onChange(seed);
                     setOpen(false);
                   }}
-                  className="py-[11px] px-3.5 cursor-pointer text-sm border-b border-gray-50 transition-colors"
                   style={{
+                    padding: '11px 14px',
+                    cursor: 'pointer',
+                    fontSize: 14,
                     background:
                       value === seed
                         ? g.category === 'DANAC'
                           ? '#dcfce7'
                           : '#fef3c7'
                         : 'transparent',
+                    borderBottom: '1px solid #f9fafb',
+                    transition: 'background 0.1s',
                     fontWeight: value === seed ? 600 : 400,
                   }}
                   onMouseEnter={(e) => {
@@ -109,7 +158,7 @@ const SeedSelector: React.FC<SeedSelectorProps> = ({
                         : 'transparent';
                   }}
                 >
-                  {value === seed && <span className="mr-1.5">{'\u2713'}</span>}
+                  {value === seed && <span style={{ marginRight: 6 }}>✓</span>}
                   {seed}
                 </div>
               ))}
@@ -125,8 +174,17 @@ const SeedSelector: React.FC<SeedSelectorProps> = ({
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             onCustomChange(e.target.value)
           }
-          className="mt-2 w-full py-[9px] px-3 border-2 border-amber-500 rounded-lg text-[13px] font-sans outline-none"
-          style={{ boxSizing: 'border-box' }}
+          style={{
+            marginTop: 8,
+            width: '100%',
+            padding: '9px 12px',
+            border: '2px solid #f59e0b',
+            borderRadius: 8,
+            fontSize: 13,
+            boxSizing: 'border-box',
+            fontFamily: 'inherit',
+            outline: 'none',
+          }}
         />
       )}
     </div>

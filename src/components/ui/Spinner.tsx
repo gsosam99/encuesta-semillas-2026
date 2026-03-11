@@ -1,10 +1,17 @@
 import React from 'react';
 
 const Spinner: React.FC = () => (
-  <div className="text-center py-20">
+  <div style={{ textAlign: 'center', padding: 80 }}>
     <div
-      className="w-9 h-9 border-4 border-gray-200 border-t-green-600 rounded-full mx-auto mb-3"
-      style={{ animation: 'spin 0.7s linear infinite' }}
+      style={{
+        width: 36,
+        height: 36,
+        border: '4px solid #e5e7eb',
+        borderTopColor: '#16a34a',
+        borderRadius: '50%',
+        animation: 'spin 0.7s linear infinite',
+        margin: '0 auto 12px',
+      }}
     />
   </div>
 );

@@ -14,18 +14,34 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   submitting,
   onSubmit,
 }) => (
-  <div className="mt-6 sticky bottom-4 z-50">
+  <div
+    style={{
+      marginTop: 24,
+      position: 'sticky',
+      bottom: 16,
+      zIndex: 50,
+    }}
+  >
     <button
       onClick={onSubmit}
       disabled={!canSubmit || submitting}
-      className="w-full p-4 rounded-[14px] border-none text-base font-bold font-sans transition-all"
       style={{
+        width: '100%',
+        padding: 16,
+        borderRadius: 14,
+        border: 'none',
         background: canSubmit
           ? 'linear-gradient(135deg,#14532d,#16a34a)'
           : '#e5e7eb',
         color: canSubmit ? '#fff' : '#9ca3af',
+        fontSize: 16,
+        fontWeight: 700,
         cursor: canSubmit ? 'pointer' : 'not-allowed',
-        boxShadow: canSubmit ? '0 8px 30px rgba(22,163,74,0.3)' : 'none',
+        fontFamily: 'inherit',
+        boxShadow: canSubmit
+          ? '0 8px 30px rgba(22,163,74,0.3)'
+          : 'none',
+        transition: 'all 0.3s',
         animation:
           canSubmit && !submitting ? 'pulse 2s infinite' : 'none',
       }}
@@ -36,7 +52,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
           ? `Faltan ${stats.total - stats.assigned} lotes`
           : stats.danacPct < 70
             ? `DANAC insuficiente (${stats.danacPct.toFixed(1)}%)`
-            : '\u2713 Enviar Respuesta'}
+            : '✓ Enviar Respuesta'}
     </button>
   </div>
 );

@@ -18,11 +18,34 @@ const ProducerLinkList: React.FC<ProducerLinkListProps> = ({
   copied,
   onCopyLink,
 }) => (
-  <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-[0_4px_20px_rgba(0,0,0,0.04)] mb-6">
-    <h2 className="text-xl font-extrabold text-gray-800 mb-1">
-      &#x1F517; Enlaces por Productor
+  <div
+    style={{
+      background: '#fff',
+      borderRadius: 16,
+      padding: 24,
+      border: '1px solid #e5e7eb',
+      boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
+      marginBottom: 24,
+    }}
+  >
+    <h2
+      style={{
+        fontSize: 20,
+        fontWeight: 800,
+        color: '#1f2937',
+        marginBottom: 4,
+      }}
+    >
+      🔗 Enlaces por Productor
     </h2>
-    <p className="text-[13px] text-gray-500 mb-4 leading-relaxed">
+    <p
+      style={{
+        fontSize: 13,
+        color: '#6b7280',
+        marginBottom: 16,
+        lineHeight: 1.5,
+      }}
+    >
       Cada productor tiene un enlace único y privado. Solo puede ver sus propios
       lotes. Copie y envíe por WhatsApp el enlace correspondiente.
     </p>
@@ -30,14 +53,33 @@ const ProducerLinkList: React.FC<ProducerLinkListProps> = ({
       type="text"
       placeholder="Buscar productor..."
       value={adminSearch}
-      onChange={(e) => onSearchChange(e.target.value)}
-      className="w-full py-2.5 px-3.5 border-2 border-gray-200 rounded-[10px] text-sm font-sans mb-3.5 outline-none focus:border-green-600"
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+        onSearchChange(e.target.value)
+      }
+      style={{
+        width: '100%',
+        padding: '10px 14px',
+        border: '2px solid #e5e7eb',
+        borderRadius: 10,
+        fontSize: 14,
+        fontFamily: 'inherit',
+        marginBottom: 14,
+        outline: 'none',
+      }}
+      onFocus={(e) =>
+        ((e.target as HTMLInputElement).style.borderColor = '#16a34a')
+      }
+      onBlur={(e) =>
+        ((e.target as HTMLInputElement).style.borderColor = '#e5e7eb')
+      }
     />
-    <div className="max-h-[420px] overflow-y-auto">
+    <div style={{ maxHeight: 420, overflowY: 'auto' }}>
       {Object.keys(PRODUCERS_DATA)
         .sort()
-        .filter((n) => n.toLowerCase().includes(adminSearch.toLowerCase()))
-        .map((name, i) => {
+        .filter((n: string) =>
+          n.toLowerCase().includes(adminSearch.toLowerCase())
+        )
+        .map((name: string, i: number) => {
           const token = PRODUCER_TOKENS[name];
           const ha = PRODUCERS_DATA[name].reduce((s, l) => s + l.h, 0);
           const responded = allResponses.some((r) => r.producer === name);
@@ -46,41 +88,80 @@ const ProducerLinkList: React.FC<ProducerLinkListProps> = ({
           return (
             <div
               key={name}
-              className="py-3 px-3.5 rounded-xl mb-1.5"
               style={{
+                padding: '12px 14px',
+                borderRadius: 12,
+                marginBottom: 6,
                 border: `1px solid ${responded ? '#bbf7d0' : '#f3f4f6'}`,
                 background: responded ? '#f0fdf4' : '#fff',
                 animation: `slideUp 0.2s ease ${i * 0.015}s both`,
               }}
             >
-              <div className="flex justify-between items-center mb-1.5">
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: 6,
+                }}
+              >
                 <div>
-                  <span className="font-semibold text-sm text-gray-800">
+                  <span
+                    style={{
+                      fontWeight: 600,
+                      fontSize: 14,
+                      color: '#1f2937',
+                    }}
+                  >
                     {responded && (
-                      <span className="text-green-600 mr-1">{'\u2713'}</span>
+                      <span style={{ color: '#16a34a', marginRight: 4 }}>
+                        ✓
+                      </span>
                     )}
                     {name}
                   </span>
-                  <span className="text-xs text-gray-400 ml-2.5">
+                  <span
+                    style={{
+                      fontSize: 12,
+                      color: '#9ca3af',
+                      marginLeft: 10,
+                    }}
+                  >
                     {PRODUCERS_DATA[name].length} lotes · {ha.toFixed(1)} Ha
                   </span>
                 </div>
                 <button
                   onClick={() => onCopyLink(token)}
-                  className="py-1.5 px-3.5 rounded-lg text-xs font-semibold font-sans transition-all min-w-[110px]"
                   style={{
+                    padding: '5px 14px',
+                    borderRadius: 8,
                     border: `1px solid ${copied === token ? '#16a34a' : '#d1d5db'}`,
                     background: copied === token ? '#16a34a' : '#f9fafb',
-                    color: copied === token ? '#fff' : '#374151',
                     cursor: 'pointer',
+                    fontSize: 12,
+                    fontWeight: 600,
+                    fontFamily: 'inherit',
+                    color: copied === token ? '#fff' : '#374151',
+                    transition: 'all 0.2s',
+                    minWidth: 110,
                   }}
                 >
-                  {copied === token
-                    ? '\u2713 Copiado!'
-                    : '\uD83D\uDCCB Copiar enlace'}
+                  {copied === token ? '✓ Copiado!' : '📋 Copiar enlace'}
                 </button>
               </div>
-              <div className="text-[11px] text-gray-400 bg-gray-50 py-1.5 px-2.5 rounded-md font-mono overflow-hidden text-ellipsis whitespace-nowrap">
+              <div
+                style={{
+                  fontSize: 11,
+                  color: '#9ca3af',
+                  background: '#f9fafb',
+                  padding: '6px 10px',
+                  borderRadius: 6,
+                  fontFamily: 'monospace',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
                 {link}
               </div>
             </div>

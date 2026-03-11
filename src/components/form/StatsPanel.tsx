@@ -9,11 +9,13 @@ interface StatsPanelProps {
   stats: Stats;
 }
 
-const StatLabel: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="text-[10px] text-gray-400 font-bold uppercase tracking-wide">
-    {children}
-  </div>
-);
+const statLabelStyle: React.CSSProperties = {
+  fontSize: 10,
+  color: '#9ca3af',
+  fontWeight: 700,
+  textTransform: 'uppercase',
+  letterSpacing: 0.5,
+};
 
 const StatsPanel: React.FC<StatsPanelProps> = ({
   producerName,
@@ -21,59 +23,128 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
   totalHa,
   stats,
 }) => (
-  <div className="bg-white rounded-2xl p-[22px] border border-gray-200 shadow-[0_4px_20px_rgba(0,0,0,0.04)] mb-[18px]">
-    <div className="flex justify-between items-start flex-wrap gap-3.5">
-      <div className="flex-1 min-w-[200px]">
-        <h2 className="text-xl font-extrabold text-gray-800 mb-1">
+  <div
+    style={{
+      background: '#fff',
+      borderRadius: 16,
+      padding: 22,
+      border: '1px solid #e5e7eb',
+      boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
+      marginBottom: 18,
+    }}
+  >
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        flexWrap: 'wrap',
+        gap: 14,
+      }}
+    >
+      <div style={{ flex: 1, minWidth: 200 }}>
+        <h2
+          style={{
+            fontSize: 20,
+            fontWeight: 800,
+            color: '#1f2937',
+            marginBottom: 4,
+          }}
+        >
           {producerName}
         </h2>
-        <div className="flex gap-3.5 text-[13px] text-gray-500 flex-wrap">
-          <span>&#x1F4CD; {lotCount} lotes</span>
-          <span>&#x1F4D0; {totalHa.toFixed(2)} Ha</span>
+        <div
+          style={{
+            display: 'flex',
+            gap: 14,
+            fontSize: 13,
+            color: '#6b7280',
+            flexWrap: 'wrap',
+          }}
+        >
+          <span>📍 {lotCount} lotes</span>
+          <span>📐 {totalHa.toFixed(2)} Ha</span>
           <span>
-            &#x2705; {stats.assigned}/{stats.total}
+            ✅ {stats.assigned}/{stats.total}
           </span>
         </div>
-        <p className="text-[13px] text-gray-500 mt-2.5 leading-relaxed">
+        <p
+          style={{
+            fontSize: 13,
+            color: '#6b7280',
+            marginTop: 10,
+            lineHeight: 1.5,
+          }}
+        >
           Asigne un tipo de semilla a cada lote. Mínimo{' '}
-          <strong className="text-green-800">70%</strong> de su superficie debe
-          ser <strong className="text-green-800">DANAC</strong>.
+          <strong style={{ color: '#166534' }}>70%</strong> de su superficie debe
+          ser <strong style={{ color: '#166534' }}>DANAC</strong>.
         </p>
       </div>
-      <div className="text-center shrink-0">
+      <div style={{ textAlign: 'center', flexShrink: 0 }}>
         <ProgressRing percentage={stats.danacPct} />
-        <div className="text-[11px] text-gray-500 mt-0.5 font-bold">DANAC</div>
+        <div
+          style={{
+            fontSize: 11,
+            color: '#6b7280',
+            marginTop: 2,
+            fontWeight: 700,
+          }}
+        >
+          DANAC
+        </div>
       </div>
     </div>
-    <div className="mt-3.5 bg-gray-50 rounded-[10px] py-3 px-4 grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-3">
+    <div
+      style={{
+        marginTop: 14,
+        background: '#f9fafb',
+        borderRadius: 10,
+        padding: '12px 16px',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit,minmax(120px,1fr))',
+        gap: 12,
+      }}
+    >
       <div>
-        <StatLabel>Ha DANAC</StatLabel>
-        <div className="text-lg font-extrabold text-green-600">
+        <div style={statLabelStyle}>Ha DANAC</div>
+        <div style={{ fontSize: 18, fontWeight: 800, color: '#16a34a' }}>
           {stats.danacHa.toFixed(2)}
         </div>
       </div>
       <div>
-        <StatLabel>Ha Otros</StatLabel>
-        <div className="text-lg font-extrabold text-amber-600">
+        <div style={statLabelStyle}>Ha Otros</div>
+        <div style={{ fontSize: 18, fontWeight: 800, color: '#d97706' }}>
           {stats.otrosHa.toFixed(2)}
         </div>
       </div>
       <div>
-        <StatLabel>Mín. DANAC</StatLabel>
-        <div className="text-lg font-extrabold text-gray-700">
+        <div style={statLabelStyle}>Mín. DANAC</div>
+        <div style={{ fontSize: 18, fontWeight: 800, color: '#374151' }}>
           {(totalHa * 0.7).toFixed(2)}
         </div>
       </div>
       <div>
-        <StatLabel>Máx. Otros</StatLabel>
-        <div className="text-lg font-extrabold text-gray-700">
+        <div style={statLabelStyle}>Máx. Otros</div>
+        <div style={{ fontSize: 18, fontWeight: 800, color: '#374151' }}>
           {(totalHa * 0.3).toFixed(2)}
         </div>
       </div>
     </div>
     {stats.allDone && stats.danacPct < 70 && (
-      <div className="mt-3 py-2.5 px-3.5 bg-red-50 border border-red-200 rounded-[10px] text-[13px] text-red-600 font-medium">
-        &#x26D4; DANAC: {stats.danacPct.toFixed(1)}% — necesita{' '}
+      <div
+        style={{
+          marginTop: 12,
+          padding: '10px 14px',
+          background: '#fef2f2',
+          border: '1px solid #fecaca',
+          borderRadius: 10,
+          fontSize: 13,
+          color: '#dc2626',
+          fontWeight: 500,
+        }}
+      >
+        ⛔ DANAC: {stats.danacPct.toFixed(1)}% — necesita{' '}
         {(totalHa * 0.7 - stats.danacHa).toFixed(2)} Ha más para alcanzar 70%.
       </div>
     )}

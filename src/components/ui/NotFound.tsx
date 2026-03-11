@@ -1,12 +1,19 @@
 import React from 'react';
 
 const NotFound: React.FC = () => (
-  <div className="text-center py-20 animate-fadeIn">
-    <div className="text-6xl mb-4">&#x1F512;</div>
-    <h2 className="text-2xl font-extrabold text-gray-800 mb-2">
+  <div style={{ textAlign: 'center', padding: 80, animation: 'fadeIn 0.4s' }}>
+    <div style={{ fontSize: 56, marginBottom: 16 }}>🔒</div>
+    <h2
+      style={{
+        fontSize: 22,
+        fontWeight: 800,
+        color: '#1f2937',
+        marginBottom: 8,
+      }}
+    >
       Enlace no válido
     </h2>
-    <p className="text-[15px] text-gray-500 leading-relaxed">
+    <p style={{ fontSize: 15, color: '#6b7280', lineHeight: 1.6 }}>
       Este enlace no corresponde a ningún productor registrado.
       <br />
       Verifique el enlace que le fue compartido.

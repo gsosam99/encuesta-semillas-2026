@@ -31,7 +31,7 @@ const ProducerForm: React.FC<ProducerFormProps> = ({
   onCustomChange,
   onSubmit,
 }) => (
-  <div className="animate-fadeIn">
+  <div style={{ animation: 'fadeIn 0.4s' }}>
     <StatsPanel
       producerName={producerName}
       lotCount={lotes.length}

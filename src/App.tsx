@@ -122,10 +122,16 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-gray-50 to-amber-50 font-sans">
+    <div
+      style={{
+        minHeight: '100vh',
+        background: 'linear-gradient(160deg,#f0fdf4 0%,#fafbfc 50%,#fffbeb 100%)',
+        fontFamily: "'DM Sans',sans-serif",
+      }}
+    >
       <Header mode={mode} />
 
-      <div className="max-w-[680px] mx-auto px-4 py-5 pb-[100px]">
+      <div style={{ maxWidth: 680, margin: '0 auto', padding: '20px 16px 100px' }}>
         {mode === 'loading' && <Spinner />}
         {mode === 'notfound' && <NotFound />}
 

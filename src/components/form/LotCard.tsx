@@ -27,30 +27,54 @@ const LotCard: React.FC<LotCardProps> = ({
 
   return (
     <div
-      className="bg-white rounded-[14px] py-4 px-[18px] mb-2.5 overflow-visible transition-colors"
       style={{
+        background: '#fff',
+        borderRadius: 14,
+        padding: '16px 18px',
+        marginBottom: 10,
         border: `2px solid ${seed ? (isDanac ? '#bbf7d0' : '#fde68a') : '#f3f4f6'}`,
         animation: `slideUp 0.3s ease ${Math.min(index * 0.03, 0.5)}s both`,
         position: 'relative',
         zIndex: totalLots - index,
+        overflow: 'visible',
+        transition: 'border-color 0.3s',
       }}
     >
-      <div className="flex justify-between items-center mb-2.5">
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 10,
+        }}
+      >
         <div>
-          <div className="font-bold text-[15px] text-gray-800">{k}</div>
+          <div style={{ fontWeight: 700, fontSize: 15, color: '#1f2937' }}>
+            {k}
+          </div>
           {lot.f && (
-            <div className="text-xs text-gray-400 mt-px">Finca: {lot.f}</div>
+            <div style={{ fontSize: 12, color: '#9ca3af', marginTop: 1 }}>
+              Finca: {lot.f}
+            </div>
           )}
         </div>
         <div
-          className="py-1 px-3.5 rounded-full text-[13px] font-bold transition-all"
           style={{
-            background: seed ? (isDanac ? '#dcfce7' : '#fef3c7') : '#f3f4f6',
+            padding: '4px 14px',
+            borderRadius: 20,
+            background: seed
+              ? isDanac
+                ? '#dcfce7'
+                : '#fef3c7'
+              : '#f3f4f6',
+            fontSize: 13,
+            fontWeight: 700,
             color: seed
               ? isDanac
                 ? '#166534'
                 : '#92400e'
               : '#374151',
+            transition: 'all 0.3s',
           }}
         >
           {lot.h} Ha

@@ -22,7 +22,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({
   onRefresh,
   onExportCSV,
 }) => (
-  <div className="animate-fadeIn">
+  <div style={{ animation: 'fadeIn 0.4s' }}>
     <ProducerLinkList
       allResponses={allResponses}
       adminSearch={adminSearch}

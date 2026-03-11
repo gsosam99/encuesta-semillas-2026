@@ -6,22 +6,46 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ mode }) => (
-  <div className="relative overflow-hidden px-5 pt-[22px] pb-4 text-white bg-gradient-to-br from-green-950 via-green-800 to-lime-700">
-    <div className="absolute -top-[50px] -right-[30px] w-[180px] h-[180px] rounded-full bg-white/[0.06]" />
-    <div className="max-w-[680px] mx-auto relative">
-      <div className="flex items-center gap-2.5">
-        <span className="text-2xl">&#x1F33E;</span>
-        <h1 className="font-display text-[21px] font-extrabold">
+  <div
+    style={{
+      background: 'linear-gradient(135deg,#14532d 0%,#166534 40%,#4d7c0f 100%)',
+      padding: '22px 20px 16px',
+      color: '#fff',
+      position: 'relative',
+      overflow: 'hidden',
+    }}
+  >
+    <div
+      style={{
+        position: 'absolute',
+        top: -50,
+        right: -30,
+        width: 180,
+        height: 180,
+        borderRadius: '50%',
+        background: 'rgba(255,255,255,0.06)',
+      }}
+    />
+    <div style={{ maxWidth: 680, margin: '0 auto', position: 'relative' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <span style={{ fontSize: 24 }}>🌾</span>
+        <h1
+          style={{
+            fontFamily: "'Playfair Display',serif",
+            fontSize: 21,
+            fontWeight: 800,
+          }}
+        >
           Encuesta de Semillas
         </h1>
       </div>
       {mode === 'form' && (
-        <p className="text-[13px] opacity-80 mt-0.5">
+        <p style={{ fontSize: 13, opacity: 0.8, marginTop: 3 }}>
           Selección de semilla por Lote Muestreo
         </p>
       )}
       {mode === 'admin' && (
-        <p className="text-[13px] opacity-80 mt-0.5">
+        <p style={{ fontSize: 13, opacity: 0.8, marginTop: 3 }}>
           Panel de administración
         </p>
       )}
