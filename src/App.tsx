@@ -95,7 +95,7 @@ const App: React.FC = () => {
     };
   }, [selections, lotes, totalHa]);
 
-  const canSubmit: boolean = stats.allDone && stats.danacPct >= 70;
+  const canSubmit: boolean = stats.allDone && stats.danacPct >= 65;
 
   const handleSubmit = async (): Promise<void> => {
     if (!canSubmit || submitting) return;
@@ -141,13 +141,16 @@ const App: React.FC = () => {
     <div
       style={{
         minHeight: '100vh',
-        background: 'linear-gradient(160deg,#f0fdf4 0%,#fafbfc 50%,#fffbeb 100%)',
+        background:
+          'linear-gradient(160deg,#f0fdf4 0%,#fafbfc 50%,#fffbeb 100%)',
         fontFamily: "'DM Sans',sans-serif",
       }}
     >
       <Header mode={mode} />
 
-      <div style={{ maxWidth: 680, margin: '0 auto', padding: '20px 16px 100px' }}>
+      <div
+        style={{ maxWidth: 680, margin: '0 auto', padding: '20px 16px 100px' }}
+      >
         {mode === 'loading' && <Spinner />}
 
         {mode === 'login' && (
@@ -164,12 +167,8 @@ const App: React.FC = () => {
             customSeeds={customSeeds}
             canSubmit={canSubmit}
             submitting={submitting}
-            onSeedChange={(k, s) =>
-              setSelections((p) => ({ ...p, [k]: s }))
-            }
-            onCustomChange={(k, v) =>
-              setCustomSeeds((p) => ({ ...p, [k]: v }))
-            }
+            onSeedChange={(k, s) => setSelections((p) => ({ ...p, [k]: s }))}
+            onCustomChange={(k, v) => setCustomSeeds((p) => ({ ...p, [k]: v }))}
             onSubmit={handleSubmit}
           />
         )}

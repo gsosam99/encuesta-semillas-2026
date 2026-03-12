@@ -38,19 +38,16 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
         fontWeight: 700,
         cursor: canSubmit ? 'pointer' : 'not-allowed',
         fontFamily: 'inherit',
-        boxShadow: canSubmit
-          ? '0 8px 30px rgba(22,163,74,0.3)'
-          : 'none',
+        boxShadow: canSubmit ? '0 8px 30px rgba(22,163,74,0.3)' : 'none',
         transition: 'all 0.3s',
-        animation:
-          canSubmit && !submitting ? 'pulse 2s infinite' : 'none',
+        animation: canSubmit && !submitting ? 'pulse 2s infinite' : 'none',
       }}
     >
       {submitting
         ? 'Enviando...'
         : !stats.allDone
           ? `Faltan ${stats.total - stats.assigned} lotes`
-          : stats.danacPct < 70
+          : stats.danacPct < 68.5
             ? `DANAC insuficiente (${stats.danacPct.toFixed(1)}%)`
             : '✓ Enviar Respuesta'}
     </button>

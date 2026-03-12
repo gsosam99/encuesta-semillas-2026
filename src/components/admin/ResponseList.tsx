@@ -114,7 +114,7 @@ const ResponseList: React.FC<ResponseListProps> = ({
                 style={{
                   fontSize: 20,
                   fontWeight: 800,
-                  color: (d.danacPct || 0) >= 70 ? '#16a34a' : '#dc2626',
+                  color: (d.danacPct || 0) >= 68.5 ? '#16a34a' : '#dc2626',
                 }}
               >
                 {(d.danacPct || 0).toFixed(1)}%

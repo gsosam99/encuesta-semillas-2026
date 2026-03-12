@@ -77,8 +77,8 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
           }}
         >
           Asigne un tipo de semilla a cada lote. Mínimo{' '}
-          <strong style={{ color: '#166534' }}>70%</strong> de su superficie debe
-          ser <strong style={{ color: '#166534' }}>DANAC</strong>.
+          <strong style={{ color: '#166534' }}>70%</strong> de su superficie
+          debe ser <strong style={{ color: '#166534' }}>DANAC</strong>.
         </p>
       </div>
       <div style={{ textAlign: 'center', flexShrink: 0 }}>
@@ -131,7 +131,7 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
         </div>
       </div>
     </div>
-    {stats.allDone && stats.danacPct < 70 && (
+    {stats.allDone && stats.danacPct < 68.5 && (
       <div
         style={{
           marginTop: 12,

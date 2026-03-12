@@ -15,7 +15,7 @@ const ProgressRing: React.FC<ProgressRingProps> = ({
   const circ = 2 * Math.PI * r;
   const offset = circ - (Math.min(percentage, 100) / 100) * circ;
   const color =
-    percentage >= 70 ? '#16a34a' : percentage >= 50 ? '#d97706' : '#dc2626';
+    percentage >= 68.5 ? '#16a34a' : percentage >= 50 ? '#d97706' : '#dc2626';
   return (
     <svg width={size} height={size} style={{ transform: 'rotate(-90deg)' }}>
       <circle
