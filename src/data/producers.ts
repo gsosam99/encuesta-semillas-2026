@@ -15,6 +15,20 @@ export const PRODUCERS_DATA: Record<string, Lote[]> = {
     { l: 'Victoriero 2', h: 83.05, f: 'Agroveneta' },
     { l: 'Samancito', h: 32.46, f: 'Agroveneta' },
   ],
+  'Celso Fantinel Furlanis': [
+    { l: 'Costanero', h: 15.61, f: 'Agroveneta' },
+    { l: 'La Ceiba', h: 30.46, f: 'Agroveneta' },
+    { l: 'Taladro A', h: 14.7, f: 'Agroveneta' },
+    { l: 'Frijolero Oeste', h: 17.19, f: 'Agroveneta' },
+    { l: 'Taladro B', h: 13.53, f: 'Agroveneta' },
+    { l: 'Punta gorda A', h: 19.58, f: 'Agroveneta' },
+    { l: 'Guillero 1', h: 9.62, f: 'Agroveneta' },
+    { l: 'Guillero 2', h: 31.59, f: 'Agroveneta' },
+    { l: 'Guillero 3', h: 22.76, f: 'Agroveneta' },
+    { l: 'Victoriero 1', h: 95.49, f: 'Agroveneta' },
+    { l: 'Victoriero 2', h: 83.05, f: 'Agroveneta' },
+    { l: 'Samancito', h: 32.46, f: 'Agroveneta' },
+  ],
   'Meiz Tohme Elchair': [
     { l: 'Cerro Blanco', h: 31.78, f: 'Buenavista' },
     { l: 'El Roble 2 + 3', h: 34.78, f: 'Buenavista' },
@@ -150,7 +164,7 @@ export const PRODUCERS_DATA: Record<string, Lote[]> = {
     { l: 'El Dragal 4', h: 35.27, f: 'Los Espinitos' },
     { l: 'El Dragal 5', h: 19.42, f: 'Los Espinitos' },
   ],
-  'Pedro Vicente Gomez Arvelaz': [
+  'Pedro Vicente Gomez Arvelaez': [
     { l: 'El Marbellero', h: 12.44, f: 'El Mochuelo' },
     { l: 'Concha de Drago', h: 35.52, f: 'El Mochuelo' },
     { l: 'El Roble', h: 15.43, f: 'El Mochuelo' },
@@ -268,6 +282,7 @@ export const PRODUCERS_DATA: Record<string, Lote[]> = {
     { l: 'La Victoria 4', h: 7.75, f: 'La Victoria' },
     { l: 'Santa Barbara 1', h: 18.55, f: 'Santa Barbara' },
     { l: 'Santa Barbara 2', h: 14.56, f: 'Santa Barbara' },
+    { l: 'Santa Barbara 3', h: 12.51, f: 'Santa Barbara' },
   ],
   'Dennis Leonardo Alibardi Maschio': [
     { l: 'Lote 5', h: 15.83, f: 'Agropecuaria Alma' },
@@ -442,6 +457,13 @@ export const PRODUCERS_DATA: Record<string, Lote[]> = {
     { l: 'Grande', h: 11.2, f: '' },
     { l: 'Caro caro 1', h: 11.86, f: '' },
     { l: 'Betsi', h: 14.21, f: '' },
+    { l: 'Lote 1', h: 14.21, f: '' },
+    { l: 'Lote 2', h: 14.21, f: '' },
+    { l: 'Lote 3', h: 14.21, f: '' },
+    { l: 'Lote 4', h: 14.21, f: '' },
+    { l: 'Willi', h: 14.21, f: '' },
+    { l: 'Los Aguacates', h: 14.21, f: '' },
+    { l: 'Neco', h: 14.21, f: '' },
   ],
   'Victor Oropeza': [
     { l: 'La Mora', h: 15.27, f: '' },
@@ -456,7 +478,7 @@ export const PRODUCERS_DATA: Record<string, Lote[]> = {
     { l: 'Las 15', h: 14.54, f: '' },
     { l: 'Las 29', h: 27.19, f: '' },
   ],
-  'Yaro Chaer': [
+  'Yaro El Chaer': [
     { l: 'La Autopista', h: 8.02, f: '' },
     { l: 'El Samán', h: 27.17, f: '' },
     { l: 'Bernaldino 1+2', h: 9.07, f: '' },
@@ -525,12 +547,12 @@ export const CEDULA_TO_PRODUCER: Record<string, string> = {
   'V-10977065': 'Yolymar Balza Guevara',
   'V-14663710': 'Carlo Antonio Delfin Carmona',
   'V-16634859': 'Eduardo Manuel Mosquera Morillo',
-  'V-5946332': 'Wolfgang Esteger',
-  'V-10369553': 'Jose Sanchez',
-  'V-12079943': 'Richard Apostol',
+  'V-5946332': 'Wolfgang Steger',
+  'V-10369553': 'José Sánchez',
+  'V-12079943': 'Richard Apóstol',
   'V-13567047': 'Virbel Griman',
-  'V-7911954': 'Hector Perez',
-  'V-18684353': 'Williams Canelon',
+  'V-7911954': 'Héctor Pérez',
+  'V-18684353': 'Williams Canelón',
   'V-11654854': 'Victor Oropeza',
   'V-17378481': 'Yaro El Chaer',
 };
