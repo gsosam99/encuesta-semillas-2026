@@ -515,7 +515,7 @@ export const CEDULA_TO_PRODUCER: Record<string, string> = {
   'V-11567351': 'Celso Fantinel Furlanis',
   'V-7597992': 'Cesar Igor Padilla Martinez',
   'V-10975891': 'Cesar Augusto Ledezma Mendez',
-  'V-08790668': 'Jose Dario Gallucci Requena',
+  'V-8790668': 'Jose Dario Gallucci Requena',
   'V-14887686': 'Dennis Leonardo Alibardi Maschio',
   'V-3182565': 'Elisa Bustamante',
   'V-18799146': 'Ezequiel Jose Fontiveros Briceño',
